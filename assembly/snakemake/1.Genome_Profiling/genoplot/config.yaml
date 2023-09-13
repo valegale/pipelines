@@ -1,6 +1,5 @@
-READ_FILES:
-    A: ERR9588940.sample.part_001.fastq.gz
-    B: ERR9588940.sample.part_002.fastq.gz
+input_file:
+    ../../input_files.tsv
 
 prefix:
     test

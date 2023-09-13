@@ -13,110 +13,16 @@ U=config["Ubound"]
 
 # Reading the input files that contain a single column called "file_path"
 samples = pd.read_csv(config['input_file'], dtype=str, index_col=False, skip_blank_lines=True)
-# Adding a new column with only the sample_id (basename without the extension)
-samples["sample_id"] = [os.path.splitext(os.path.basename(sample))[0].split('.')[0] for sample in samples["file_path"]]
-# Adding a new column with the sample number (sample_1, sample_2, etc.)
 samples["sample_nr"] = [f"sample_{i+1}" for i in range(len(samples))]
 
 # Output folders 
 output_meryl=config["prefix"]+".meryl"
 output_smudgeplot=prefix+"_L"+str(L)+"_U"+str(U)+"_smudgeplot.png"
 
+include: "1.Genome_Profiling/genoplot/rules.smk"
+
+
 rule all:
 	input:
 		output_smudgeplot,
 		"Estimated_genome_size"
-
-rule count_kmers:
-	input:
-		reads=lambda wildcards: samples[samples["sample_nr"] == wildcards.sample_nr]["file_path"]
-	output:
-		directory("{sample_nr}.meryl")
-	conda:
-		os.path.join(workflow.basedir, "envs/genome_profiling.yaml")
-	threads:
-		3
-	shell:
-		"meryl count k={k} memory=10G threads={threads} {input.reads} output {output}"
-
-rule merge_kmers:
-	input:
-		expand("{sample_nr}.meryl", sample_nr=samples['sample_nr']),  
-	output:
-		directory(output_meryl)
-	conda:
-		os.path.join(workflow.basedir, "envs/genome_profiling.yaml")
-	threads:
-		6
-	shell:
-		"meryl union-sum memory=10G threads={threads} output {output} {input}"
-
-rule create_hist:
-	input:
-		output_meryl
-	output:
-		config["prefix"]+".hist"
-	conda:
-		os.path.join(workflow.basedir, "envs/genome_profiling.yaml")
-	threads:
-		1
-	shell:
-		"meryl histogram {input} > {output}"
-
-rule run_genomescope:
-	input:
-		config["prefix"]+".hist"
-	output:
-		directory(config["prefix"]+"_genomescope")
-	conda:
-		os.path.join(workflow.basedir, "envs/genome_profiling.yaml")
-	threads:
-		1
-	shell:
-		"genomescope2 -i {input} -p {ploidy} -k {k} -o {output}"
-
-rule get_genomescopeStats:
-	input:
-		config["prefix"]+"_genomescope"
-	output:
-		"Estimated_genome_size"
-	threads:
-		1
-	shell:
-		"bash get_stats.sh {input}"
-
-rule prepare_kmersSmudge:
-	input:
-		output_meryl
-	output:
-		str(prefix)+"_L"+str(L)+"_U"+str(U)+".kmers"
-	conda:
-		os.path.join(workflow.basedir, "envs/genome_profiling.yaml")
-	threads:
-		6
-	shell:
-		"meryl print less-than 1500 greater-than 10 threads={threads} memory=10G {input} | sort > {output}"
-
-rule run_smudgeplot:
-	input:
-		str(prefix)+"_L"+str(L)+"_U"+str(U)+".kmers"
-	output:
-		str(prefix)+"_L"+str(L)+"_U"+str(U)+"_coverages.tsv"
-	conda:
-		os.path.join(workflow.basedir, "envs/genome_profiling.yaml")
-	threads:
-		1
-	shell:
-		"smudgeplot.py hetkmers -o {prefix}_L{L}_U{U} < {input}"
-
-rule create_smudgeplot:
-	input:
-		str(prefix)+"_L"+str(L)+"_U"+str(U)+"_coverages.tsv"
-	output:
-		output_smudgeplot
-	conda:
-		os.path.join(workflow.basedir, "envs/genome_profiling.yaml")
-	threads:
-		1
-	shell:
-		"smudgeplot_plot.R -L {L} -i {input} -o {prefix}_L{L}_U{U}"

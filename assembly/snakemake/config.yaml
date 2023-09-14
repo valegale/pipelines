@@ -1,6 +1,9 @@
 input_file:
     input_files.tsv
 
+snakemake_dir_path: 
+    '/scratch/galeov97/begendiv/pipelines/assembly/snakemake'
+
 prefix:
     test
 

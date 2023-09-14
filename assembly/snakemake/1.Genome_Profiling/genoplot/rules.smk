@@ -4,7 +4,7 @@ rule count_kmers:
 	output:
 		directory("{sample_nr}.meryl")
 	conda:
-		"genoplots"
+		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
 		3
 	shell:
@@ -16,7 +16,7 @@ rule merge_kmers:
 	output:
 		directory(output_meryl)
 	conda:
-		"genoplots"
+		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
 		6
 	shell:
@@ -28,7 +28,7 @@ rule create_hist:
 	output:
 		config["prefix"]+".hist"
 	conda:
-		"genoplots"
+		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
 		1
 	shell:
@@ -40,7 +40,7 @@ rule run_genomescope:
 	output:
 		directory(config["prefix"]+"_genomescope")
 	conda:
-		"genoplots"
+		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
 		1
 	shell:
@@ -62,7 +62,7 @@ rule prepare_kmersSmudge:
 	output:
 		str(prefix)+"_L"+str(L)+"_U"+str(U)+".kmers"
 	conda:
-		"genoplots"
+		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
 		6
 	shell:
@@ -74,7 +74,7 @@ rule run_smudgeplot:
 	output:
 		str(prefix)+"_L"+str(L)+"_U"+str(U)+"_coverages.tsv"
 	conda:
-		"genoplots"
+		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
 		1
 	shell:
@@ -86,7 +86,7 @@ rule create_smudgeplot:
 	output:
 		output_smudgeplot
 	conda:
-		"genoplots"
+		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
 		1
 	shell:

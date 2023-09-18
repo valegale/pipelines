@@ -6,15 +6,21 @@ snakemake_dir_path:
 
 prefix:
     test
-
 ploidy:
     2
 
+# genome profiling
 kmersize:
     31
-
 Lbound:
     10
-
 Ubound:
     1500
+
+# contigging 
+genome_sie_estimate: 
+    80m #  '4.7m' equals '4700k' equals '4700000'
+purgel: 
+    "1" #Hifiasm purging parameter - 0 = no purging, 1 = purge contained haplotigs (s=0.75), 2 = purge all haplotigs (s=0.75), 3 = aggresive purging of all haplotigs (s=0.55)
+contig_assembler:
+    "hifiasm" # possible choices: hifiasm, hicanu, flye

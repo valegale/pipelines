@@ -1,0 +1,11 @@
+# Add hifiasm-phased assembly option with HiC reads
+# Create config file which an asssembler as input (e.g. hifiasm/hicanu/flye) so that purge-dups only looks for a single output
+configfile: 'config.yaml'
+
+rule all:
+    input:
+        asm_hicanu = os.path.join(config['snakemake_dir_path'], 'hicanu/asm.contigs.fasta'),
+        asm_p_fa = os.path.join(config['snakemake_dir_path'] +  'hifiasm/purgeL' + config['purgel'] + '/hifiasmL' + config['purgel'] + '.asm.p_ctg.fasta'),
+        asm_a_fa = os.path.join(config['snakemake_dir_path'] +  'hifiasm/purgeL' + config['purgel'] + '/hifiasmL' + config['purgel'] + '.asm.a_ctg.fasta'),
+        asm_flye = os.path.join(config['snakemake_dir_path'], 'flye/assembly.fasta')
+

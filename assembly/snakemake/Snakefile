@@ -11,37 +11,35 @@ k=config["kmersize"]
 L=config["Lbound"]
 U=config["Ubound"]
 contig_assembler = config['contig_assembler']
-print (contig_assembler)
+
 # Reading the input files that contain a single column called "file_path"
 samples = pd.read_csv(config['input_file'], dtype=str, index_col=False, skip_blank_lines=True)
+# Adding a new column with only the sample_id (basename without the extension)
+samples["sample_id"] = [os.path.splitext(os.path.basename(sample))[0].split('.')[0] for sample in samples["file_path"]]
+# Adding a new column with the sample number (example sample_1, sample_2 etc...)
 samples["sample_nr"] = [f"sample_{i+1}" for i in range(len(samples))]
 
 # Output folders 
 output_meryl=config["prefix"]+".meryl"
 output_smudgeplot=prefix+"_L"+str(L)+"_U"+str(U)+"_smudgeplot.png"
 
+# in genoplot you still need to modify the path of the results!
 include: "1.Genome_Profiling/genoplot/rules.smk"
 include: "2.Contigging/hifi/rules.smk"
-
-
-def contig_output(contig_assembler):
-	if contig_assembler == "hifiasm":
-		asm_p_fa = os.path.join(config['snakemake_dir_path'], 'results/1.Contigging/hifiasm/purgeL' + config['purgel'] + '/hifiasmL' + config['purgel'] + '.asm.p_ctg.fasta')
-		asm_a_fa = os.path.join(config['snakemake_dir_path'], 'results/1.Contigging/hifiasm/purgeL' + config['purgel'] + '/hifiasmL' + config['purgel'] + '.asm.a_ctg.fasta')
-		return asm_p_fa, asm_a_fa
-	elif contig_assembler == "flye":
-		asm_flye = os.path.join(config['snakemake_dir_path'], 'results/1.Contigging/flye/assembly.fasta')
-		return asm_flye
-	elif contig_assembler == "hicanu":
-		asm_hicanu = os.path.join(config['snakemake_dir_path'], 'results/1.Contigging/hicanu/asm.contigs.fasta')
-		return asm_hicanu
-	 
+include: "3.Purging/purge-dups/rules.smk"
 
 
 rule all:
 	input:	
-		# Genome profiling:
-		#output_smudgeplot,
-		#"Estimated_genome_size",
-		# Contigging:
-		contig_output(contig_assembler),
+		# 1. Genome profiling:
+		output_smudgeplot,
+		"Estimated_genome_size",
+
+		# 2. Contigging:
+		#contig_output(contig_assembler),
+
+		# 3. Purging:
+		purged_assembly = os.path.join(config['results'], f'3.Purging/{prefix}.purged.fa'), 
+		hap_assembly = os.path.join(config['results'], f'3.Purging/{prefix}.hap.fa') #git!!
+
+		

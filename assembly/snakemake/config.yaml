@@ -1,11 +1,14 @@
 input_file:
-    input_files.tsv
+    "/scratch/galeov97/begendiv/pipelines_data_test/input_files.tsv"
 
 snakemake_dir_path: 
-    '/scratch/galeov97/begendiv/pipelines/assembly/snakemake'
+    "/scratch/galeov97/begendiv/pipelines/assembly/snakemake"
+
+results: 
+    "/scratch/galeov97/begendiv/pipelines_data_test/results"
 
 prefix:
-    test
+    speciesX
 ploidy:
     2
 
@@ -18,7 +21,7 @@ Ubound:
     1500
 
 # contigging 
-genome_sie_estimate: 
+genome_size_estimate: 
     80m #  '4.7m' equals '4700k' equals '4700000'
 purgel: 
     "1" #Hifiasm purging parameter - 0 = no purging, 1 = purge contained haplotigs (s=0.75), 2 = purge all haplotigs (s=0.75), 3 = aggresive purging of all haplotigs (s=0.55)

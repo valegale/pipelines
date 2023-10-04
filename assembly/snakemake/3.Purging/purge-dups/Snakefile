@@ -98,3 +98,4 @@ rule get_seqs:
 	shell:
 		"get_seqs -e -p {prefix} {input.dups} {input.genome}"
 
+#### finish here, start from the output

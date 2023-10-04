@@ -1,0 +1,10 @@
+name: yahs
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - yahs
+  - pairtools
+  - bwa
+  - samtools
+  - numpy==1.23

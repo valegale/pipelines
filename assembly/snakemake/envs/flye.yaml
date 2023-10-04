@@ -1,4 +1,4 @@
-name: genoplots
+name: flye
 channels:
   - conda-forge
   - bioconda

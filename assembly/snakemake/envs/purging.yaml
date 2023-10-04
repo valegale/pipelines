@@ -1,0 +1,6 @@
+name: purging
+channels:
+  - bioconda
+dependencies:
+  - minimap2
+  - purge_dups

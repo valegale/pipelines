@@ -1,0 +1,12 @@
+#ignoring the new logs 
+logs/
+/../snakemakelogs/
+
+#ignoring changes in .snakemake (environments)
+.snakemake/
+
+#ignoring pycache 
+__pycache__
+
+#ignoring nohup.out
+nohup.out

@@ -1,4 +1,4 @@
-name: genoplots
+name: hifiasm
 channels:
   - conda-forge
   - bioconda

@@ -16,11 +16,11 @@ rule hifiasm:
 		mem_mb = 70000
 	params:
 		runtime = '40:00:00',
-		prefix = os.path.join(config['snakemake_dir_path'], 'hifiasm/purgeL' + config['purgel'] + '/hifiasmL' + config['purgel'] + '.asm'),
+		prefix = os.path.join(config['results'], '2.Contigging/hifiasm/purgeL' + config['purgel'] + '/hifiasmL' + config['purgel'] + '.asm'),
 		purgel=config['purgel']
 	shell:
 		"""
-		(hifiasm -o {params.prefix}  --primary -t {threads} -f 0 -l {params.purgel} {input.hifi_fastq}) 2> {log}
+		(hifiasm -o {params.prefix}  --primary -t {threads} -l {params.purgel} {input.hifi_fastq}) 2> {log}
 		"""
 
 

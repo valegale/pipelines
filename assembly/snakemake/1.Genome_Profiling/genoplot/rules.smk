@@ -2,7 +2,7 @@ rule count_kmers:
 	input:
 		reads=lambda wildcards: samples[samples["sample_nr"] == wildcards.sample_nr]["file_path"]
 	output:
-		directory("{sample_nr}.meryl")
+		directory(os.path.join(config['results'],"1.Genome_Profiling/{sample_nr}.meryl"))
 	conda:
 		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
@@ -12,7 +12,7 @@ rule count_kmers:
 
 rule merge_kmers:
 	input:
-		expand("{sample_nr}.meryl", sample_nr=samples['sample_nr']),  
+		expand(os.path.join(config['results'],"1.Genome_Profiling/{sample_nr}.meryl"), sample_nr=samples['sample_nr']),  
 	output:
 		directory(output_meryl)
 	conda:
@@ -26,7 +26,7 @@ rule create_hist:
 	input:
 		output_meryl
 	output:
-		config["prefix"]+".hist"
+		os.path.join(config['results'],"1.Genome_Profiling", (config["prefix"]+".hist"))
 	conda:
 		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
@@ -36,9 +36,9 @@ rule create_hist:
 
 rule run_genomescope:
 	input:
-		config["prefix"]+".hist"
+		os.path.join(config['results'],"1.Genome_Profiling", (config["prefix"]+".hist"))
 	output:
-		directory(config["prefix"]+"_genomescope")
+		directory(os.path.join(config['results'],"1.Genome_Profiling", (config["prefix"]+"_genomescope")))
 	conda:
 		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
@@ -48,19 +48,19 @@ rule run_genomescope:
 
 rule get_genomescopeStats:
 	input:
-		config["prefix"]+"_genomescope"
+		os.path.join(config['results'],"1.Genome_Profiling", (config["prefix"]+"_genomescope"))
 	output:
 		"Estimated_genome_size"
 	threads:
 		1
-	shell:
-		"bash get_stats.sh {input}"
+	shell: # change here
+		"bash 1.Genome_Profiling/genoplot/get_stats.sh {input}"
 
 rule prepare_kmersSmudge:
 	input:
 		output_meryl
 	output:
-		str(prefix)+"_L"+str(L)+"_U"+str(U)+".kmers"
+		os.path.join(config['results'],"1.Genome_Profiling", (str(prefix)+"_L"+str(L)+"_U"+str(U)+".kmers"))
 	conda:
 		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
@@ -70,9 +70,9 @@ rule prepare_kmersSmudge:
 
 rule run_smudgeplot:
 	input:
-		str(prefix)+"_L"+str(L)+"_U"+str(U)+".kmers"
+		os.path.join(config['results'],"1.Genome_Profiling", (str(prefix)+"_L"+str(L)+"_U"+str(U)+".kmers"))
 	output:
-		str(prefix)+"_L"+str(L)+"_U"+str(U)+"_coverages.tsv"
+		os.path.join(config['results'],"1.Genome_Profiling", (str(prefix)+"_L"+str(L)+"_U"+str(U)+"_coverages.tsv"))
 	conda:
 		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yaml")
 	threads:
@@ -82,7 +82,7 @@ rule run_smudgeplot:
 
 rule create_smudgeplot:
 	input:
-		str(prefix)+"_L"+str(L)+"_U"+str(U)+"_coverages.tsv"
+		os.path.join(config['results'],"1.Genome_Profiling", (str(prefix)+"_L"+str(L)+"_U"+str(U)+"_coverages.tsv"))
 	output:
 		output_smudgeplot
 	conda:

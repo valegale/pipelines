@@ -1,0 +1,106 @@
+/home/galeov97/mambaforge/envs/GEP/lib/python3.10/site-packages/google/protobuf/internal/api_implementation.py:110: UserWarning: Selected implementation cpp is not available.
+  warnings.warn(
+Building DAG of jobs...
+Your conda installation is not configured to use strict channel priorities. This is however crucial for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Select jobs to execute...
+
+[Mon Nov 27 16:28:18 2023]
+rule count_kmers:
+    input: /scratch/galeov97/begendiv/pipelines_data_test/beetle/hifi/ERR10287558_trimmed.fq.gz
+    output: /scratch/galeov97/begendiv/pipelines_data_test/results/genome_profiling/sample_1.meryl
+    jobid: 0
+    reason: Forced execution
+    wildcards: sample_nr=sample_1
+    threads: 4
+    resources: mem_mb=10000, disk_mb=25113, tmpdir=/localscratch/tmp/galeov97/tmp.15524931.0, partition=begendiv,main, qos=standard, time=04:00:00
+
+Activating conda environment: .snakemake/conda/402a6e3dcf83d20fad55f3a324c837a6
+
+Found 1 command tree.
+
+Counting 36 (estimated) billion canonical 31-mers from 1 input file:
+    sequence-file: /scratch/galeov97/begendiv/pipelines_data_test/beetle/hifi/ERR10287558_trimmed.fq.gz
+
+
+SIMPLE MODE
+-----------
+
+  Not possible.
+
+
+COMPLEX MODE
+------------
+
+prefix     # of   struct   kmers/    segs/      min     data    total
+  bits   prefix   memory   prefix   prefix   memory   memory   memory
+------  -------  -------  -------  -------  -------  -------  -------
+     1     2  P   280 MB  9417 MM    17 MS  8192  B   140 GB   140 GB
+     2     4  P   275 MB  4708 MM  8831 kS    16 kB   137 GB   138 GB
+     3     8  P   271 MB  2354 MM  4343 kS    32 kB   135 GB   136 GB
+     4    16  P   267 MB  1177 MM  2137 kS    64 kB   133 GB   133 GB
+     5    32  P   262 MB   588 MM  1050 kS   128 kB   131 GB   131 GB
+     6    64  P   257 MB   294 MM   515 kS   256 kB   128 GB   129 GB
+     7   128  P   253 MB   147 MM   253 kS   512 kB   126 GB   126 GB
+     8   256  P   249 MB    73 MM   124 kS  1024 kB   124 GB   124 GB
+     9   512  P   245 MB    36 MM    60 kS  2048 kB   121 GB   122 GB
+    10  1024  P   242 MB    18 MM    29 kS  4096 kB   119 GB   119 GB
+    11  2048  P   241 MB  9417 kM    14 kS  8192 kB   117 GB   117 GB
+    12  4096  P   242 MB  4708 kM  7362  S    16 MB   115 GB   115 GB
+    13  8192  P   250 MB  2354 kM  3610  S    32 MB   112 GB   113 GB
+    14    16 kP   271 MB  1177 kM  1768  S    64 MB   110 GB   110 GB
+    15    32 kP   317 MB   588 kM   865  S   128 MB   108 GB   108 GB
+    16    64 kP   414 MB   294 kM   424  S   256 MB   106 GB   106 GB
+    17   128 kP   611 MB   147 kM   207  S   512 MB   103 GB   104 GB
+    18   256 kP  1012 MB    73 kM   102  S  1024 MB   102 GB   102 GB
+    19   512 kP  1816 MB    36 kM    50  S  2048 MB   100 GB   101 GB
+    20  1024 kP  3432 MB    18 kM    25  S  4096 MB   100 GB   103 GB
+    21  2048 kP  6656 MB  9418  M    12  S  8192 MB    96 GB   102 GB  Best Value!
+    22  4096 kP    12 GB  4709  M     6  S    16 GB    96 GB   108 GB
+    23  8192 kP    25 GB  2355  M     3  S    32 GB    96 GB   121 GB
+    24    16 MP    50 GB  1178  M     2  S    64 GB   128 GB   178 GB
+    25    32 MP   101 GB   589  M     1  S   128 GB   128 GB   229 GB
+    26    64 MP   202 GB   295  M     1  S   256 GB   256 GB   458 GB
+    27   128 MP   405 GB   148  M     1  S   512 GB   512 GB   917 GB
+    28   256 MP   810 GB    74  M     1  S  1024 GB  1024 GB  1834 GB
+    29   512 MP  1620 GB    37  M     1  S  2048 GB  2048 GB  3668 GB
+
+
+FINAL CONFIGURATION
+-------------------
+
+Estimated to require 198 GB memory out of 9 TB allowed.
+Estimated to require 2 batches.
+
+Configured complex mode for 198.688 GB memory per batch, and up to 2 batches.
+
+Start counting with THREADED method.
+Used 21.127 GB / 9999.969 GB to store      2091664 kmers; need 0.001 GB to sort        13035 kmers
+Used 21.325 GB / 9999.969 GB to store      4183111 kmers; need 0.001 GB to sort        13035 kmers
+Used 21.466 GB / 9999.969 GB to store      8366501 kmers; need 0.002 GB to sort        26268 kmers
+Used 21.590 GB / 9999.969 GB to store     14641276 kmers; need 0.003 GB to sort        51022 kmers
+Used 21.719 GB / 9999.969 GB to store     27190237 kmers; need 0.005 GB to sort        90162 kmers
+Used 21.843 GB / 9999.969 GB to store     48107528 kmers; need 0.009 GB to sort       151630 kmers
+Used 21.966 GB / 9999.969 GB to store     81574717 kmers; need 0.015 GB to sort       247523 kmers
+Used 22.087 GB / 9999.969 GB to store    119224047 kmers; need 0.021 GB to sort       357717 kmers
+Used 22.208 GB / 9999.969 GB to store    158965369 kmers; need 0.029 GB to sort       482190 kmers
+Used 22.328 GB / 9999.969 GB to store    198705373 kmers; need 0.036 GB to sort       599580 kmers
+Used 22.447 GB / 9999.969 GB to store    238446424 kmers; need 0.043 GB to sort       716149 kmers
+Used 22.569 GB / 9999.969 GB to store    278185571 kmers; need 0.050 GB to sort       833242 kmers
+Used 22.694 GB / 9999.969 GB to store    317926474 kmers; need 0.057 GB to sort       953661 kmers
+Used 22.815 GB / 9999.969 GB to store    355575860 kmers; need 0.064 GB to sort      1071735 kmers
+Used 22.938 GB / 9999.969 GB to store    393225113 kmers; need 0.071 GB to sort      1189772 kmers
+Used 23.064 GB / 9999.969 GB to store    430874104 kmers; need 0.078 GB to sort      1300729 kmers
+Used 23.186 GB / 9999.969 GB to store    466430976 kmers; need 0.084 GB to sort      1407028 kmers
+Used 23.310 GB / 9999.969 GB to store    501988427 kmers; need 0.091 GB to sort      1523494 kmers
+Used 23.435 GB / 9999.969 GB to store    537545227 kmers; need 0.097 GB to sort      1630175 kmers
+Used 23.561 GB / 9999.969 GB to store    573103174 kmers; need 0.104 GB to sort      1743888 kmers
+Used 23.680 GB / 9999.969 GB to store    606567214 kmers; need 0.110 GB to sort      1845736 kmers
+Used 23.801 GB / 9999.969 GB to store    640031216 kmers; need 0.116 GB to sort      1947166 kmers
+Used 23.924 GB / 9999.969 GB to store    673495633 kmers; need 0.122 GB to sort      2049227 kmers
+Used 24.048 GB / 9999.969 GB to store    706959004 kmers; need 0.128 GB to sort      2151613 kmers
+Used 24.172 GB / 9999.969 GB to store    740424419 kmers; need 0.134 GB to sort      2248568 kmers
+Used 24.292 GB / 9999.969 GB to store    771796003 kmers; need 0.140 GB to sort      2345743 kmers
+slurmstepd: error: *** JOB 15525343 ON b003 CANCELLED AT 2023-11-27T20:28:35 DUE TO TIME LIMIT ***

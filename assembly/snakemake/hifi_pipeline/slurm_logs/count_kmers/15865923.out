@@ -1,0 +1,16 @@
+
+== Epilog Slurmctld ==================================================
+
+Job ID: 15865923
+Cluster: curta
+User/Group: galeov97/agmazzoni
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 8
+CPU Utilized: 02:27:18
+CPU Efficiency: 44.05% of 05:34:24 core-walltime
+Job Wall-clock time: 00:41:48
+Memory Utilized: 110.96 GB
+Memory Efficiency: 45.45% of 244.14 GB
+
+======================================================================

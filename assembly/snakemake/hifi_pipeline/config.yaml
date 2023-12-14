@@ -1,0 +1,36 @@
+# Config file for the snakemake assembly pipeline 
+
+# Paths for input and output files
+input_file_hifi:
+    "/scratch/galeov97/begendiv/pipelines_data_test/input_files_hifi.tsv"
+input_file_hic:
+    "/scratch/galeov97/begendiv/pipelines_data_test/input_files_hic.tsv"
+snakemake_dir_path: 
+    "/scratch/galeov97/begendiv/pipelines/assembly/snakemake/hifi_pipeline"
+results: 
+    "/scratch/galeov97/begendiv/pipelines_data_test/results"
+
+# Data inputs
+prefix:
+    speciesX
+ploidy:
+    2
+kmersize:
+    31
+
+
+trimming: 
+    False
+genome_size_estimate: 
+    80m #  '4.7m' equals '4700k' equals '4700000'
+purgel: 
+    "0" #Hifiasm purging parameter - 0 = no purging, 1 = purge contained haplotigs (s=0.75), 2 = purge all haplotigs (s=0.75), 3 = aggresive purging of all haplotigs (s=0.55)
+contig_assembler:
+    "hifiasm" # possible choices: hifiasm, hicanu, flye, hifiasm
+phasing_mode:
+    True
+
+
+### path to define slurm resources - do not change unless you wish to use in a different location
+resources:             
+    "submit_config/slurm/define_resources.yaml"

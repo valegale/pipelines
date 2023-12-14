@@ -1,0 +1,19 @@
+/home/galeov97/mambaforge/envs/GEP/lib/python3.10/site-packages/google/protobuf/internal/api_implementation.py:110: UserWarning: Selected implementation cpp is not available.
+  warnings.warn(
+Building DAG of jobs...
+Your conda installation is not configured to use strict channel priorities. This is however crucial for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Select jobs to execute...
+
+[Wed Dec 13 17:22:38 2023]
+rule create_hist:
+    input: /scratch/galeov97/begendiv/pipelines_data_test/results/genome_profiling/speciesX.meryl
+    output: /scratch/galeov97/begendiv/pipelines_data_test/results/genome_profiling/speciesX.hist
+    jobid: 0
+    reason: Forced execution
+    resources: mem_mb=1000, disk_mb=1000, tmpdir=/scratch/tmp/galeov97/tmp.15865921.0, partition=begendiv,main, qos=standard, time=01:00:00
+
+Activating conda environment: .snakemake/conda/402a6e3dcf83d20fad55f3a324c837a6
+slurmstepd: error: *** JOB 15866033 ON b001 CANCELLED AT 2023-12-13T18:22:41 DUE TO TIME LIMIT ***

@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --nodes=1
-#SBATCH --mem=100MB
+#SBATCH --mem=1000MB
 #SBATCH --qos=standard
 #SBATCH --time=2-00:00:00
 #SBATCH --job-name=beetle_assembly

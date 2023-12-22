@@ -1,10 +1,13 @@
+localrules:
+	get_genomescope_stats
+
 ### meryl
 
 rule count_kmers:
 	input:
 		reads=lambda wildcards: samples[samples["sample_nr"] == wildcards.sample_nr]["hifi_data"]
 	output:
-		temp(directory(os.path.join(config['results'],"genome_profiling/{sample_nr}.meryl")))
+		temp(directory(os.path.join(config['results'], prefix, "genome_profiling/{sample_nr}.meryl")))
 	conda:
 		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yml")
 	threads:
@@ -17,9 +20,9 @@ rule count_kmers:
 
 rule merge_kmers:
 	input:
-		expand(os.path.join(config['results'],"genome_profiling/{sample_nr}.meryl"), sample_nr=samples['sample_nr']),  
+		expand(os.path.join(config['results'], prefix, "genome_profiling/{sample_nr}.meryl"), sample_nr=samples['sample_nr']),  
 	output:
-		directory(os.path.join(config['results'],"genome_profiling", (config["prefix"] +".meryl")))
+		directory(os.path.join(config['results'] , prefix, "genome_profiling", (prefix +".meryl")))
 	conda:
 		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yml")
 	threads:
@@ -32,9 +35,9 @@ rule merge_kmers:
 
 rule create_hist:
 	input:
-		os.path.join(config['results'],"genome_profiling", (prefix + ".meryl"))
+		os.path.join(config['results'], prefix, "genome_profiling", (prefix + ".meryl"))
 	output:
-		os.path.join(config['results'],"genome_profiling", (prefix + ".hist"))
+		os.path.join(config['results'], prefix, "genome_profiling", (prefix + ".hist"))
 	conda:
 		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yml")
 	threads:
@@ -49,14 +52,14 @@ rule create_hist:
 
 rule run_smudgeplot:
 	input:
-		hist=os.path.join(config['results'],"genome_profiling", (prefix + ".hist"))
+		hist=os.path.join(config['results'], prefix, "genome_profiling", (prefix + ".hist"))
 	output:
-		plot1=os.path.join(config['results'],"genome_profiling/{prefix}/smudgeplot/results_smudgeplot.png"),
-		plot2=os.path.join(config['results'],"genome_profiling/{prefix}/smudgeplot/results_smudgeplot_log10.png"),
-		summary_table=os.path.join(config['results'],"genome_profiling/{prefix}/smudgeplot/results_summary_table.tsv")
+		plot1=os.path.join(config['results'], prefix, "genome_profiling", "smudgeplot", "results_smudgeplot.png"),
+		plot2=os.path.join(config['results'], prefix, "genome_profiling", "smudgeplot", "results_smudgeplot_log10.png"),
+		summary_table=os.path.join(config['results'], prefix, "genome_profiling", "smudgeplot", "results_summary_table.tsv")
 	params:
-		output_path=os.path.join(config['results'],"genome_profiling/{prefix}/smudgeplot"),
-		meryl_path=os.path.join(config['results'],"genome_profiling", (config["prefix"] +".meryl")),
+		output_path=os.path.join(config['results'], prefix, "genome_profiling/smudgeplot"),
+		meryl_path=os.path.join(config['results'], prefix, "genome_profiling", (prefix + ".meryl")),
 		kmer=kmer
 	conda:
 		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yml")
@@ -66,7 +69,7 @@ rule run_smudgeplot:
 		mem_mb=resource['run_smudgeplot']['mem_mb'],
 		time=resource['run_smudgeplot']['time']
 	log:
-		os.path.join(config['results'],"logs/{prefix}_smudgeplot.log")
+		os.path.join(config['results'], "logs",  prefix, "smudgeplot.log")
 	shell:
 		"""
 		L=$(smudgeplot.py cutoff {input.hist} L)
@@ -83,9 +86,9 @@ rule run_smudgeplot:
 
 rule run_genomescope:
 	input:
-		os.path.join(config['results'],"genome_profiling", (prefix + ".hist"))
+		os.path.join(config['results'], prefix, "genome_profiling", (prefix + ".hist"))
 	output:
-		directory(os.path.join(config['results'], "genome_profiling", prefix, "genomescope"))
+		directory(os.path.join(config['results'], prefix, "genome_profiling", "genomescope"))
 	conda:
 		os.path.join(config['snakemake_dir_path'], "envs/genome_profiling.yml")
 	threads:
@@ -99,10 +102,10 @@ rule run_genomescope:
 
 rule get_genomescope_stats:
 	input:
-		os.path.join(config['results'],"genome_profiling", prefix, "genomescope")
+		os.path.join(config['results'], prefix, "genome_profiling", "genomescope")
 	output:
-		estimated_genome_size = os.path.join(config['results'],"genome_profiling", prefix, "estimated_genome_size.txt"),
-		maximum_depth = os.path.join(config['results'],"genome_profiling", prefix, "maximum_depth.txt")
+		estimated_genome_size = os.path.join(config['results'], prefix, "genome_profiling", "estimated_genome_size.txt"),
+		maximum_depth = os.path.join(config['results'], prefix, "genome_profiling", "maximum_depth.txt")
 	threads:
 		1
 	shell:

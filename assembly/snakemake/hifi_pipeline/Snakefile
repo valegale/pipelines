@@ -75,27 +75,25 @@ if config["trimming"]:
 
 def all_evaluation_files():
 	if config['purgel'] == "all":
-		return	os.path.join(config['results'],  prefix, "genome_profiling", "smudgeplot/results_smudgeplot.png"), \ 
-				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l1", "merqury.qv"), \
-				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l1", "merqury.completeness.stats"), \
-				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l1", 'busco', 'short_summary.specific.' + busco_lineage + '_odb10.busco_out.txt'), \
+		return	os.path.join(config['results'], prefix, "genome_profiling", "smudgeplot/results_smudgeplot.png"), \ 
+				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l1", "merqury", prefix + ".qv"), \
+				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l1", "merqury", prefix + ".completeness.stats"), \	
 				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l1", "stats", 'gfastats.txt'),  \
-				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l2", "merqury.qv"), \
-				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l2", "merqury.completeness.stats"), \
-				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l2", 'busco', 'short_summary.specific.' + busco_lineage + '_odb10.busco_out.txt'), \
+				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l2", "merqury", prefix + ".qv"), \
+				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l2", "merqury", prefix + ".completeness.stats"), \
 				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l2", "stats", 'gfastats.txt'),  \
-				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l3", "merqury.qv"), \
-				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l3", "merqury.completeness.stats"), \
-				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l3", 'busco', 'short_summary.specific.' + busco_lineage + '_odb10.busco_out.txt'), \
+				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l3", "merqury", prefix + ".qv"), \
+				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l3", "merqury", prefix + ".completeness.stats"), \
 				os.path.join(config['results'], prefix, "assembly_evaluation", "hifiasm_hic_l3", "stats", 'gfastats.txt')  
 	else:
 		return 	os.path.join(config['results'],  prefix, "genome_profiling", "smudgeplot/results_smudgeplot.png"), \
-				os.path.join(evaluation_folder(contig_assembler, phasing_mode), 'merqury.qv'), \
-				os.path.join(evaluation_folder(contig_assembler, phasing_mode), 'merqury.completeness.stats'), \
-				os.path.join(evaluation_folder(contig_assembler, phasing_mode), 'busco', 'short_summary.specific.' + busco_lineage + '_odb10.busco_out.txt'), \
+				os.path.join(evaluation_folder(contig_assembler, phasing_mode), "merqury", prefix + '.qv'), \
+				os.path.join(evaluation_folder(contig_assembler, phasing_mode), "merqury", prefix + '.completeness.stats'), \
 				os.path.join(evaluation_folder(contig_assembler, phasing_mode), "stats", 'gfastats.txt') 
 
 
 rule all:
 	input:
 		all_evaluation_files()
+
+

@@ -20,7 +20,7 @@ rule merge_kmers:
 	threads:
 		6
 	shell:
-		"meryl union-sum memory=10G threads={threads} output {output} {input}"
+		"meryl union-sum memory=10G threads={threads} output {output} {input} "
 
 rule create_hist:
 	input:

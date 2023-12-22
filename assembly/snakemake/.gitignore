@@ -1,12 +1,13 @@
 #ignoring the new logs 
 logs/
-/../snakemakelogs/
 
 #ignoring changes in .snakemake (environments)
 .snakemake/
+slurm_logs/
 
 #ignoring pycache 
 __pycache__
 
 #ignoring nohup.out
 nohup.out
+hifi_pipeline/busco_download/
